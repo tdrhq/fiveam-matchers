@@ -91,9 +91,9 @@ Let's create a method to describe the matcher:
 ```
 
 For convenience, you don't need to explicitly format the message. You
-can return a list of objects that are all appended to each other. When
-the test fails this is used to render what was actually expected (as
-opposed to the what failed).
+can return a list of objects that are all appended to each other. This
+method is not called. When the test fails this is used to render what
+was actually expected.
 
 Finally, we need to describe why the test failed:
 
@@ -101,12 +101,6 @@ Finally, we need to describe why the test failed:
 (defmethod describe-mismatch ((matcher starts-with-matcher) actual)
   `("expected `" ,actual "` to start with " ,(prefix matcher) ))
 ```
-
-When you build a new matcher, try to allow the arguments to be
-matchers themselves. For instance, if you create a matcher that says
-an HTML tag has an attribute value, the attribute value does not have
-to be a string: You can imagine a developer might want to check that
-`class` attribute matches having a substring.
 
 ## API
 
