@@ -15,7 +15,8 @@
    #:has-typep
    #:ensure-matcher
    #:is-string
-   #:matchesp))
+   #:matchesp
+   #:is-equal-to))
 (in-package :fiveam-matchers/core)
 
 (defclass matcher ()
@@ -49,6 +50,10 @@
 
 (defun equal-to (val)
   (make-instance 'equal-to :value val))
+
+(defun is-equal-to (val)
+  "Synonym for equal-to"
+  (equal-to val))
 
 (defun ensure-matcher (val)
   (typecase val
