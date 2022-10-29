@@ -4,4 +4,5 @@
                  #:fiveam-matchers/lists
                  #:fiveam-matchers/has-length
                  #:fiveam-matchers/every-item
-                 #:fiveam-matchers/strings))
+                 #:fiveam-matchers/strings
+                 #:fiveam-matchers/described-as))

@@ -11,8 +11,10 @@
 (defclass delegating-matcher (matcher)
   ((matcher :initarg :matcher
             :reader delegate)
-   (describe-self :initarg :describe-self)
-   (describe-mismatch :initarg :describe-mismatch))
+   (describe-self :initarg :describe-self
+                  :initform nil)
+   (describe-mismatch :initarg :describe-mismatch
+                      :initform nil))
   (:documentation "Sometimes it's easier to create a matcher in terms of other matchers,
  but even in those situations you might want to modify the
  describe-self and describe-mismatch"))

@@ -9,6 +9,7 @@
 
   :components ((:file "core")
                (:file "delegating")
+               (:file "described-as")
                (:file "every-item")
                (:file "lists")
                (:file "has-length")
