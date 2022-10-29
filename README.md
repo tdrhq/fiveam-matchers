@@ -141,6 +141,7 @@ In the following APIs, most functions that accept a matcher also accept a value,
 * `(every-item {macher|value})`: Check if every item in the list matches the given matcher.
 * `(starts-with prefix)`: Check if the result starts with the given string.
 * `(described-as "new description" matcher)`: The same matcher, but with a different description.
+* `(is-not-null)`: that the value is not null
 
 Finally, you can use the matchers using the `assert-that`:
 `(assert-that test-expression {matcher}*)`. Note that you can provide

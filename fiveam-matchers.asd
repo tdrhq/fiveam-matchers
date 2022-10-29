@@ -14,6 +14,7 @@
                (:file "lists")
                (:file "has-length")
                (:file "strings")
+               (:file "misc")
                (:file "all")))
 
 (defsystem :fiveam-matchers/tests
