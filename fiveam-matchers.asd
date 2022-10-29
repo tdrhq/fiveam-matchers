@@ -8,9 +8,10 @@
   :version "0.0.1"
 
   :components ((:file "core")
+               (:file "delegating")
+               (:file "every-item")
                (:file "lists")
                (:file "has-length")
-               (:file "every-item")
                (:file "strings")
                (:file "all")))
 

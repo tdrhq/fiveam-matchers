@@ -136,6 +136,7 @@ In the following APIs, most functions that accept a matcher also accept a value,
   consistent with Hamcrest).
 * `(has-item {matcher|value})`: Check if the result is a list that has an item
   that matches the matcher.
+* `(does-not-have-item {matcher|value})`: Check if the result is a list that does not have the specific item. Equivalent to `(every-item (not matcher)`, but with better descriptions.
 * `(has-length num)`: Check if the result has `length` equal to the num.
 * `(every-item {macher|value})`: Check if every item in the list matches the given matcher.
 * `(starts-with prefix)`: Check if the result starts with the given string.

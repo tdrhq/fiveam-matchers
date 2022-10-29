@@ -2,6 +2,7 @@
     (:use #:cl
           #:alexandria)
   (:import-from #:fiveam-matchers/core
+                #:is-not
                 #:ensure-matcher
                 #:self-describing-list
                 #:describe-self
@@ -9,9 +10,14 @@
                 #:describe-mismatch
                 #:matchesp
                 #:matcher)
+  (:import-from #:fiveam-matchers/every-item
+                #:every-item)
+  (:import-from #:fiveam-matchers/delegating
+                #:delegating-matcher)
   (:export
    #:contains
-   #:has-item))
+   #:has-item
+   #:does-not-have-item))
 (in-package :fiveam-matchers/lists)
 
 (defclass contains (matcher)
@@ -44,6 +50,19 @@
 (defun has-item (expected)
   (let ((expected (ensure-matcher expected)))
     (make-instance 'has-item :expected expected)))
+
+(defun does-not-have-item (expected)
+  (let ((expected (ensure-matcher expected)))
+    (make-instance
+     'delegating-matcher
+     :matcher (every-item (is-not expected))
+     :describe-self (lambda ()
+                      `("a sequence that does not contain: " ,(describe-self expected)))
+     :describe-mismatch (lambda (actual)
+                          (loop for item in actual
+                                for idx from 0
+                                if (matchesp expected item)
+                                  return `("The item at idx " ,idx " matches"))))))
 
 (defmethod matchesp ((matcher has-item) (actual list))
   (some (lambda (x)
