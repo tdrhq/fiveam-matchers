@@ -207,6 +207,7 @@
      (format-description (describe-mismatch matcher value) s))))
 
 (defun call-assert-that (value matcher expression match-expression)
+  (declare (optimize (debug 3) (speed 0))) ;; Keep everything in the stacktrace!
   (cond
     ((matchesp matcher value)
      (fiveam::add-result 'fiveam::test-passed
