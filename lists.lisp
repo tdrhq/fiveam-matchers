@@ -79,7 +79,8 @@
   (cond
     ((not (eql (length actual)
                (length (expected matcher))))
-     `("was a list not of length " ,(length (expected matcher))))
+     `("was a list not of length " ,(length (expected matcher)) " (actual length: "
+                                   ,(length actual) ")"))
     (t
      (loop for a in actual
            for x in (expected matcher)
