@@ -8,8 +8,7 @@
   (:local-nicknames (#:a #:alexandria)))
 (in-package :fiveam-matchers/test-satisfying)
 
-
-(util/fiveam:def-suite)
+(def-suite* :fiveam-matchers/test-satisfying)
 
 (test satisfying
   (is-true
