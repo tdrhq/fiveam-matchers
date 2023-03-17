@@ -5,4 +5,5 @@
                  #:fiveam-matchers/has-length
                  #:fiveam-matchers/every-item
                  #:fiveam-matchers/strings
-                 #:fiveam-matchers/described-as))
+                 #:fiveam-matchers/described-as
+                 #:fiveam-matchers/satisfying))

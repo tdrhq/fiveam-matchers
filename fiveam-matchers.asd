@@ -15,10 +15,12 @@
                (:file "has-length")
                (:file "strings")
                (:file "misc")
+               (:file "satisfying")
                (:file "all")))
 
 (defsystem :fiveam-matchers/tests
   :serial t
   :depends-on (:fiveam-matchers)
   :components ((:file "test-core")
-               (:file "test-lists")))
+               (:file "test-lists")
+               (:file "test-satisfying")))
