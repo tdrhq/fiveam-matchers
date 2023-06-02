@@ -1,6 +1,7 @@
 (defsystem :fiveam-matchers
   :serial t
   :depends-on (:fiveam
+               :cl-ppcre
                :str)
   :description "An extensible matchers library for FiveAM"
   :author "Arnold Noronha <arnold@tdrhq.com>"
@@ -23,4 +24,5 @@
   :depends-on (:fiveam-matchers)
   :components ((:file "test-core")
                (:file "test-lists")
+               (:file "test-strings")
                (:file "test-satisfying")))

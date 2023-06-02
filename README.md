@@ -141,6 +141,7 @@ In the following APIs, most functions that accept a matcher also accept a value,
 * `(every-item {macher|value})`: Check if every item in the list matches the given matcher.
 * `(starts-with prefix)`: Check if the result starts with the given string.
 * `(contains-string needle)`: Check if the result contains the given substring
+* `(matches-regex regex)`: Check if the string matches a regex
 * `(described-as "new description" matcher)`: The same matcher, but with a different description.
 * `(is-not-null)`: that the value is not null
 * `(satisfying expr)`: evaluate the expr with `*` bound to the value. You can use any variables in the lexical scope. This is a nice catch all matcher. For instance, an evenp matcher looks like `(satisfying (evenp *))`.

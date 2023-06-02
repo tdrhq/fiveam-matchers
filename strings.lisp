@@ -4,7 +4,8 @@
   (:local-nicknames (#:a #:alexandria))
   (:export
    #:starts-with
-   #:contains-string))
+   #:contains-string
+   #:matches-regex))
 (in-package :fiveam-matchers/strings)
 
 (defclass starts-with-matcher (matcher)
@@ -49,3 +50,22 @@
 
 (defmethod describe-mismatch ((matcher contains-string-matcher) actual)
   `("expected `" ,actual "` to contain " ,(needle matcher) ))
+
+
+(defclass matches-regex-matcher (matcher)
+  ((regex :initarg :regex
+          :reader regex)))
+
+(defun matches-regex (regex)
+  (make-instance 'matches-regex-matcher :regex regex))
+
+(defmethod matchesp ((self matches-regex-matcher)
+                     actual)
+  (cl-ppcre:scan (regex self) actual))
+
+(defmethod describe-self ((matcher matches-regex-matcher))
+  `("Matches regex `" ,(regex matcher) "'"))
+
+(defmethod describe-mismatch ((matcher matches-regex-matcher)
+                               actual)
+  `("`" ,actual "' did not match `" ,(regex matcher) "'"))
