@@ -12,7 +12,7 @@
                 #:assert-that))
 (in-package :fiveam-matchers/test-strings)
 
-(util/fiveam:def-suite)
+(def-suite* :fiveam-matchers/test-strings)
 
 (test string-matches-regex
   (let ((matcher (matches-regex ".*foo1+bar.*")))
