@@ -14,8 +14,8 @@
                (:file "every-item")
                (:file "lists")
                (:file "has-length")
-               (:file "strings")
                (:file "misc")
+               (:file "strings")
                (:file "satisfying")
                (:file "all")))
 

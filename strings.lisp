@@ -1,11 +1,21 @@
 (defpackage :fiveam-matchers/strings
   (:use #:cl
         #:fiveam-matchers/core)
+  (:import-from #:fiveam-matchers/core
+                #:is-not
+                #:has-typep
+                #:has-all)
+  (:import-from #:fiveam-matchers/misc
+                #:is-not-null)
+  (:import-from #:fiveam-matchers/described-as
+                #:described-as)
   (:local-nicknames (#:a #:alexandria))
   (:export
    #:starts-with
    #:contains-string
-   #:matches-regex))
+   #:matches-regex
+   #:is-not-empty
+   #:is-string))
 (in-package :fiveam-matchers/strings)
 
 (defclass starts-with-matcher (matcher)
@@ -69,3 +79,13 @@
 (defmethod describe-mismatch ((matcher matches-regex-matcher)
                                actual)
   `("`" ,actual "' did not match `" ,(regex matcher) "'"))
+
+(defun is-string ()
+  (has-typep 'string))
+
+(defun is-not-empty ()
+  (described-as "Expected to be non-empty string"
+   (has-all
+    (is-string)
+    (is-not-null)
+    (is-not (equal-to "")))))

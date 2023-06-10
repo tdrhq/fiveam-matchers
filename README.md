@@ -145,6 +145,8 @@ In the following APIs, most functions that accept a matcher also accept a value,
 * `(described-as "new description" matcher)`: The same matcher, but with a different description.
 * `(is-not-null)`: that the value is not null
 * `(satisfying expr)`: evaluate the expr with `*` bound to the value. You can use any variables in the lexical scope. This is a nice catch all matcher. For instance, an evenp matcher looks like `(satisfying (evenp *))`.
+* `(is-string)`: Check if the object is a string
+* `(is-not-empty)`: Check if the string is not an empty string (empty string includes NIL).
 
 Finally, you can use the matchers using the `assert-that`:
 `(assert-that test-expression {matcher}*)`. Note that you can provide
