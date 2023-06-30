@@ -21,10 +21,10 @@
 
 (defmethod describe-mismatch ((self has-length) actual)
   `("got a "
-    ,(ecase (type-of actual)
+    ,(case (type-of actual)
        (null
         'list)
        (cons
         'list)
-       (t (type-of actual)))
+       (otherwise (type-of actual)))
     " of length " ,(length actual)))
