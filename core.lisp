@@ -14,14 +14,12 @@
    #:has-any
    #:has-typep
    #:ensure-matcher
-   #:is-string
    #:matchesp
    #:is-equal-to))
 (in-package :fiveam-matchers/core)
 
 (defclass matcher ()
   ())
-
 
 (defun render-description (description output)
   (loop for x in description
@@ -183,9 +181,6 @@
 
 (defun has-typep (type)
   (make-instance 'has-typep :value type))
-
-(defun is-string ()
-  (has-typep 'string))
 
 (defmethod matchesp ((matcher has-typep) value)
   (typep value (value matcher)))
