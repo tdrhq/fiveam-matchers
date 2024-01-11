@@ -147,6 +147,8 @@ In the following APIs, most functions that accept a matcher also accept a value,
 * `(satisfying expr)`: evaluate the expr with `*` bound to the value. You can use any variables in the lexical scope. This is a nice catch all matcher. For instance, an evenp matcher looks like `(satisfying (evenp *))`.
 * `(is-string)`: Check if the object is a string
 * `(is-not-empty)`: Check if the string is not an empty string (empty string includes NIL).
+* `(signals-error-matching (error-class?) expr matcher*)`: Check if the expression signals an error that matches the given matchers. error-class defaults to `simple-error`.
+* `(error-that-matchers {matcher|value})`: Check if the given error, when converted to a string using `princ-to-string` matches the given matcher.
 
 Finally, you can use the matchers using the `assert-that`:
 `(assert-that test-expression {matcher}*)`. Note that you can provide

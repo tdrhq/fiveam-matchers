@@ -3,6 +3,8 @@
           #:fiveam
           #:alexandria)
   (:import-from #:fiveam-matchers/core
+                #:error-with-string-matching
+                #:signals-error-matching
                 #:has-any
                 #:has-all
                 #:format-description
@@ -10,7 +12,9 @@
                 #:is-not
                 #:describe-mismatch
                 #:matchesp
-                #:equal-to))
+                #:equal-to)
+  (:import-from #:fiveam-matchers/strings
+                #:matches-regex))
 (in-package #:fiveam-matchers/test-core)
 
 (def-suite* :fiveam-matchers/test-core)
@@ -69,3 +73,20 @@
     (signals fiveam::check-failure
       (assert-that "foobar"
                    (equal-to "zoidberg")))))
+
+(test signals-error-matching
+  (signals-error-matching ()
+   (error "this is a test")
+   (error-with-string-matching
+    (matches-regex "this.*test"))))
+
+(test signals-check-failure
+  (is-true
+   (matchesp (error-with-string-matching (matches-regex "foo"))
+             (make-condition 'simple-error :format-control "foo")))
+  (is-true
+   (matchesp (error-with-string-matching "foo")
+             (make-condition 'simple-error :format-control "foo")))
+  (is-false
+   (matchesp (error-with-string-matching "bar")
+             (make-condition 'simple-error :format-control "foo"))))
