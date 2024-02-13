@@ -273,4 +273,4 @@ matches the given matchers. Useful for asserting SIMPLE-ERRORs."
            e
            ,@matchers)))
        (if no-error
-           (fail "Expected to see an exception when running ~a, but didn't see any" ',expr)))))
+           (fiveam:fail "Expected to see an exception when running ~a, but didn't see any" ',expr)))))
