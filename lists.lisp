@@ -17,10 +17,15 @@
   (:export
    #:contains
    #:has-item
-   #:does-not-have-item))
+   #:does-not-have-item
+   #:contains-in-any-order))
 (in-package :fiveam-matchers/lists)
 
 (defclass contains (matcher)
+  ((expected :initarg :expected
+             :accessor expected)))
+
+(defclass contains-in-any-order (matcher)
   ((expected :initarg :expected
              :accessor expected)))
 
@@ -28,6 +33,11 @@
   (let ((expected (mapcar 'ensure-matcher expected)))
    (make-instance 'contains
                   :expected expected)))
+
+(defun contains-in-any-order (&rest expected)
+  (let ((expected (mapcar 'ensure-matcher expected)))
+    (make-instance 'contains-in-any-order
+                   :expected expected)))
 
 (defmethod matchesp ((matcher contains) (actual list))
   (when (eql (length actual)
@@ -38,10 +48,31 @@
            unless (matchesp x a)
              return t))))
 
+(defmethod matchesp ((matcher contains-in-any-order) (actual list))
+  "Compare against all permutations. Technically, we can use max-flow
+algorithm to speed this up, but .. meh."
+  (labels ((backtrack (current rest)
+             (cond
+               ((not rest)
+                (when (matchesp
+                       (make-instance 'contains
+                                      :expected current)
+                       actual)
+                  (return-from matchesp t)))
+               (t
+                (loop for r in rest do
+                  (backtrack (list* r current) (remove r rest)))))))
+    (backtrack nil (expected matcher))
+    nil))
+
 (defmethod describe-self ((matcher contains))
   `("a list with values: "
     ,(self-describing-list
       (expected matcher))))
+
+(defmethod describe-self ((matcher contains-in-any-order))
+  `("a list that matches in any order: "
+    ,(self-describing-list (expected matcher))))
 
 (defclass has-item (matcher)
   ((expected :initarg :expected
@@ -90,3 +121,12 @@
                       ,(esc i)
                       " "
                       ,(describe-mismatch x a))))))
+
+(defmethod describe-mismatch ((matcher contains-in-any-order) (actual list))
+  (cond
+    ((not (eql (length actual)
+               (length (expected matcher))))
+     `("was a list not of length " ,(length (expected matcher)) " (actual length: "
+                                   ,(length actual) ")"))
+    (t
+     "for no permutation of matchers, was the sequence matching")))

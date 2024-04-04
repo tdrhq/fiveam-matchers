@@ -134,6 +134,10 @@ In the following APIs, most functions that accept a matcher also accept a value,
   be confusing. It "reads" like the result should contain that
   element, but that's not what it is. We've kept the name to be
   consistent with Hamcrest).
+* `(contains-in-any-order {matchers|value}*)`: Check if the result is a list
+for which each element matches a matcher, but the order does not matter. Please be aware
+that the current implementation is O(n!), but could be optimized to polynomial time
+in the future.
 * `(has-item {matcher|value})`: Check if the result is a list that has an item
   that matches the matcher.
 * `(does-not-have-item {matcher|value})`: Check if the result is a list that does not have the specific item. Equivalent to `(every-item (not matcher)`, but with better descriptions.
