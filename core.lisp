@@ -80,6 +80,10 @@
   (check-type value matcher)
   (make-instance 'is-not :value value))
 
+(defun does-not (value)
+  ;; synonym
+  (is-not value))
+
 (defmethod matchesp ((matcher matcher) value)
   ;; This allows for specializing of matchesp on the value method
   nil)

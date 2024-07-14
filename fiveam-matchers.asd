@@ -19,10 +19,21 @@
                (:file "satisfying")
                (:file "all")))
 
+(defsystem :fiveam-matchers/markup
+  :serial t
+  :depends-on (:fiveam-matchers
+               :markup)
+  :components ((:module "markup"
+                :components ((:file "package")
+                             (:file "tags")))))
+
 (defsystem :fiveam-matchers/tests
   :serial t
-  :depends-on (:fiveam-matchers)
+  :depends-on (:fiveam-matchers
+               :fiveam-matchers/markup)
   :components ((:file "test-core")
                (:file "test-lists")
                (:file "test-strings")
-               (:file "test-satisfying")))
+               (:file "test-satisfying")
+               (:module "markup"
+                :components ((:file "test-tags")))))
