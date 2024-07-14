@@ -27,6 +27,10 @@
             <form>
               <input type= "hidden" />
               <div>car</div>
+
+              <markup:merge-tag>
+                <span name= "foo">bleh</span>
+              </markup:merge-tag>
             </form>
           </div>))
     (&body)))
@@ -42,3 +46,9 @@
     (assert-that
      code
      (does-not (have-matching-descendent (is-equal-to "far"))))))
+
+(test looks-up-merge-tags
+  (with-fixture state ()
+    (assert-that
+     code
+     (has-matching-descendent (is-equal-to "bleh")))))

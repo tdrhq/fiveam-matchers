@@ -14,6 +14,9 @@
                 #:matchesp
                 #:ensure-matcher)
   (:import-from #:markup
+                #:xml-merge-tag-children
+                #:xml-merge-tag
+                #:merge-tag
                 #:xml-tag-children
                 #:abstract-xml-tag))
 (in-package :fiveam-matchers/markup/tags)
@@ -34,6 +37,14 @@
    (loop for child in (xml-tag-children x)
          if (matchesp self child)
            return t)))
+
+(defmethod matchesp ((self has-matching-descendent) (x markup/markup::unescaped-string))
+  (matchesp (delegate self) (markup/markup::unescaped-string-content x)))
+
+(defmethod matchesp ((self has-matching-descendent) (x xml-merge-tag))
+  (loop for child in (xml-merge-tag-children x)
+        if (matchesp self child)
+           return t))
 
 (defmethod matchesp ((self has-matching-descendent) (x string))
   (matchesp (delegate self) x))
