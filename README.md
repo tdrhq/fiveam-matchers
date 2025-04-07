@@ -153,6 +153,7 @@ in the future.
 * `(is-not-empty)`: Check if the string is not an empty string (empty string includes NIL).
 * `(signals-error-matching (error-class?) expr matcher*)`: Check if the expression signals an error that matches the given matchers. error-class defaults to `simple-error`.
 * `(error-that-matchers {matcher|value})`: Check if the given error, when converted to a string using `princ-to-string` matches the given matcher.
+* `(is-number-close-to ... &key allowed-error)`: Check if the value is close to the expected value, useful for comparing doubles and floats.
 
 Finally, you can use the matchers using the `assert-that`:
 `(assert-that test-expression {matcher}*)`. Note that you can provide

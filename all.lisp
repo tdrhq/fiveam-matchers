@@ -6,4 +6,5 @@
                  #:fiveam-matchers/every-item
                  #:fiveam-matchers/strings
                  #:fiveam-matchers/described-as
+                 #:fiveam-matchers/numbers
                  #:fiveam-matchers/satisfying))

@@ -224,6 +224,10 @@
       (describe-mismatch-to-string
        matcher value)))))
 
+(defmethod describe-self-to-string ((self matcher))
+  (with-output-to-string (s)
+    (format-description (describe-self self) s)))
+
 (defmacro assert-that (value &rest matchers)
   (alexandria:with-gensyms (value-sym)
    `(let ((,value-sym ,value))
