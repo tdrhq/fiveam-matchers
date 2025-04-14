@@ -9,6 +9,8 @@
         #:fiveam-matchers/core)
   (:import-from #:fiveam-matchers/core
                 #:matcher)
+  (:import-from #:fiveam-matchers/strings
+                #:matches-regex)
   (:export
    #:signals-error-matching
    #:error-with-string-matching))
@@ -45,7 +47,9 @@
 
 (defmacro signals-error-matching ((&optional (error-class 'simple-error)) expr &rest matchers)
   "Checks if a the expr signaled an error whose string representation
-matches the given matchers. Useful for asserting SIMPLE-ERRORs."
+matches the given matchers. Useful for asserting SIMPLE-ERRORs.
+
+If a matcher is just a string, it is treated as equivalent to a regex, i.e. (error-with-string-matching (matches-regex ...))."
   `(progn
      (let ((no-error nil))
       (handler-case
@@ -55,7 +59,11 @@ matches the given matchers. Useful for asserting SIMPLE-ERRORs."
         (,error-class (e)
           (assert-that
            e
-           ,@matchers)))
+           ,@ (loop for matcher in matchers
+                    if (stringp matcher)
+                      collect `(error-with-string-matching (matches-regex ,matcher))
+                    else
+                      collect matcher))))
        (if no-error
            (fiveam:fail "Expected to see an exception when running ~a, but didn't see any" ',expr)))))
 

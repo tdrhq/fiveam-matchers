@@ -19,6 +19,11 @@
    (error-with-string-matching
     (matches-regex "this.*test"))))
 
+(test error-matching-with-regex
+  (signals-error-matching ()
+   (error "this is a test")
+   "this.*test"))
+
 (test signals-check-failure
   (is-true
    (matchesp (error-with-string-matching (matches-regex "foo"))
