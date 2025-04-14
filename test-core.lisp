@@ -74,19 +74,4 @@
       (assert-that "foobar"
                    (equal-to "zoidberg")))))
 
-(test signals-error-matching
-  (signals-error-matching ()
-   (error "this is a test")
-   (error-with-string-matching
-    (matches-regex "this.*test"))))
 
-(test signals-check-failure
-  (is-true
-   (matchesp (error-with-string-matching (matches-regex "foo"))
-             (make-condition 'simple-error :format-control "foo")))
-  (is-true
-   (matchesp (error-with-string-matching "foo")
-             (make-condition 'simple-error :format-control "foo")))
-  (is-false
-   (matchesp (error-with-string-matching "bar")
-             (make-condition 'simple-error :format-control "foo"))))

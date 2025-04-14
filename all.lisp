@@ -7,4 +7,5 @@
                  #:fiveam-matchers/strings
                  #:fiveam-matchers/described-as
                  #:fiveam-matchers/numbers
-                 #:fiveam-matchers/satisfying))
+                 #:fiveam-matchers/satisfying
+                 #:fiveam-matchers/errors))

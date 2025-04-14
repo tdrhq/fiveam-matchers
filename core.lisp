@@ -15,9 +15,7 @@
    #:has-typep
    #:ensure-matcher
    #:matchesp
-   #:is-equal-to
-   #:signals-error-matching
-   #:error-with-string-matching))
+   #:is-equal-to))
 (in-package :fiveam-matchers/core)
 
 (defclass matcher ()
@@ -238,47 +236,4 @@
               ',value
               ',matcher)))))
 
-(defclass error-with-string-matching (matcher)
-  ((delegate :initarg :delegate
-             :reader delegate)))
 
-(defmethod matchesp ((matcher error-with-string-matching) value)
-  (and
-   (typep value 'error)
-   (matchesp
-    (delegate matcher)
-    (princ-to-string value))))
-
-(defmethod describe-mismatch-to-string ((matcher error-with-string-matching) value)
-  (cond
-    ((not (typep value 'error))
-     (format nil "Wasn't provided an error type"))
-    (t
-     (format nil "Expected error with message to match: ~a"
-             (describe-mismatch-to-string (delegate matcher) (princ-to-string value))))))
-
-(defmethod describe-self ((matcher error-with-string-matching))
-  (format nil "An error with message: ~a"
-          (describe-self (delegate matcher))))
-
-(defmethod error-with-string-matching (matcher)
-  (make-instance 'error-with-string-matching :delegate matcher))
-
-(defmethod error-with-string-matching ((matcher string))
-  (error-with-string-matching (equal-to matcher)))
-
-(defmacro signals-error-matching ((&optional (error-class 'simple-error)) expr &rest matchers)
-  "Checks if a the expr signaled an error whose string representation
-matches the given matchers. Useful for asserting SIMPLE-ERRORs."
-  `(progn
-     (let ((no-error nil))
-      (handler-case
-          (progn
-            ,expr
-            (setf no-error t))
-        (,error-class (e)
-          (assert-that
-           e
-           ,@matchers)))
-       (if no-error
-           (fiveam:fail "Expected to see an exception when running ~a, but didn't see any" ',expr)))))

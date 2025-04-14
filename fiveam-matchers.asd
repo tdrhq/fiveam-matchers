@@ -18,6 +18,7 @@
                (:file "misc")
                (:file "strings")
                (:file "satisfying")
+               (:file "errors")
                (:file "all")))
 
 (defsystem :fiveam-matchers/markup
@@ -35,6 +36,7 @@
   :components ((:file "test-core")
                (:file "test-lists")
                (:file "test-strings")
+               (:file "test-errors")
                (:file "test-satisfying")
                (:module "markup"
                 :components ((:file "test-tags")))))
