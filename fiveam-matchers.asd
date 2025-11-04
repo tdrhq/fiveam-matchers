@@ -36,6 +36,7 @@
   :components ((:file "test-core")
                (:file "test-lists")
                (:file "test-strings")
+               (:file "test-numbers")
                (:file "test-errors")
                (:file "test-satisfying")
                (:module "markup"
