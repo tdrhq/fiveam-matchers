@@ -12,6 +12,7 @@
                (:file "delegating")
                (:file "described-as")
                (:file "every-item")
+               (:file "any-of")
                (:file "lists")
                (:file "has-length")
                (:file "numbers")
